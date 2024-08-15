@@ -13,9 +13,7 @@
 
 # misc
 .DS_Store
-.env.local
 .env.development.local
-.env.test.local
 .env.production.local
 
 npm-debug.log*
@@ -215,10 +213,6 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.development.local
-.env.test.local
-.env.production.local
-.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
