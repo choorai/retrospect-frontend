@@ -1,24 +1,19 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
 import './App.css';
-import HomePage from './pages/page';
-import CustomerSupportPage from './pages/customer_support/page';
-import OurStoryPage from './pages/our_story/page';
-import MainServicePage from './pages/main_service/page';
-import ReHubTemplatesPage from './pages/re_hub_templates/page';
+import routes from './routes';
 
 const App: React.FC = () => {
+  return useRoutes(routes);
+};
+
+// App에서는 Router를 사용할 수가 없어서 wrapper 객체를 만들어서 사용
+const AppWrapper: React.FC = () => {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/main-service" element={<MainServicePage />} />
-        <Route path="/rehub-templates" element={<ReHubTemplatesPage />} />
-        <Route path="/our-story" element={<OurStoryPage />} />
-        <Route path="/customer-support" element={<CustomerSupportPage />} />
-      </Routes>
+      <App />
     </Router>
   );
 };
 
-export default App;
+export default AppWrapper;
