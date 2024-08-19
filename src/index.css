@@ -1,13 +1,38 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Global CSS */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap');
+@import url("https://statics.goorm.io/fonts/GoormSans/v1.0.0/GoormSans.min.css");
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+
+  --primary-color: #5CB8FF; /* 5CB8FF 3d85c6 */
+  --secondary-color: #61a2e5; /* TODO : TBD 아직 2nd color 안 정해짐 */
+  --normal-color: #434343; /* normal font color */
+
+  --en-font: 'Manrope', sans-serif;
+  --ko-font: 'Goorm Sans', sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+}
+
+body, body:lang(en) {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--ko-font), sans-serif;
+}
+
+body:lang(en), div:lang(en), p:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), h5:lang(en), h6:lang(en) {
+  font-family: var(--en-font), sans-serif;
 }

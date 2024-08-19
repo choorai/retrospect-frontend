@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
-import './App.css';
 import routes from './routes';
 
 const App: React.FC = () => {
