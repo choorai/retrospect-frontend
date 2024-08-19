@@ -8,8 +8,8 @@
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
 
-  --primary-color: #3d85c6;
-  --secondary-color: #3b7bff; /* TODO : TBD 아직 2nd color 안 정해짐 */
+  --primary-color: #5CB8FF; /* 5CB8FF 3d85c6 */
+  --secondary-color: #61a2e5; /* TODO : TBD 아직 2nd color 안 정해짐 */
   --normal-color: #434343; /* normal font color */
 
   --en-font: 'Manrope', sans-serif;
