@@ -1,7 +1,14 @@
 import React from 'react';
 import styles from './MainSection.module.css';
+import { useNavigate } from 'react-router-dom';
 
 const MainSection: React.FC = () => {
+  const navigate = useNavigate();
+
+  const startBtnClick = () => {
+    navigate('/retrospect-settings');
+  };
+
   return (
     <section className={styles.mainSection}>
       <div className={styles.leftMainSection}>
@@ -10,7 +17,7 @@ const MainSection: React.FC = () => {
           <h2 className={styles.subtitle}>당신이 원하는 회고 서비스</h2>
         </div>
         <div className={styles.startBtnWrapper}>
-          <button className={styles.startBtn}>시작하기</button>
+          <button onClick={startBtnClick} className={styles.startBtn}>시작하기</button>
         </div>
       </div>
 
