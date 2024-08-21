@@ -33,6 +33,6 @@ body {
   font-family: var(--ko-font), sans-serif;
 }
 
-body:lang(en), div:lang(en), p:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), h5:lang(en), h6:lang(en) {
+body:lang(en), span:lang(en), div:lang(en), p:lang(en), h1:lang(en), h2:lang(en), h3:lang(en), h4:lang(en), h5:lang(en), h6:lang(en) {
   font-family: var(--en-font), sans-serif;
 }
