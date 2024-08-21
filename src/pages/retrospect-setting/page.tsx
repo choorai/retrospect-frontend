@@ -1,42 +1,54 @@
-import React from 'react';
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
+import React, { useState } from 'react';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import FirstSetting from '../../components/retrospect-settings/FirstSetting';
-// import { baseUrl } from "./config";
+import SecondSetting from '../../components/retrospect-settings/SecondSetting';
+import SettingPrevNextButton from '../../components/retrospect-settings/SettingPrevNextButton';
 
 const RetrospectSettingsPage = () => {
-  // const settings = {
-  //   dots: true,
-  //   infinite: true,
-  //   speed: 500,
-  //   slidesToShow: 1,
-  //   slidesToScroll: 1,
-  // };
+  const [slideIdx, setSlideIdx] = useState<number>(1);
+  const handleSlideIdx = (newSlideIdx: number) => {
+    if (newSlideIdx < 1) {
+      newSlideIdx = 1;
+    } else if (newSlideIdx > 3) {
+      newSlideIdx = 3;
+    }
+    setSlideIdx(newSlideIdx);
+  };
+
+  const sliderRef = React.createRef<Slider>();
+  const next: () => void = () => {
+    sliderRef.current?.slickNext();
+    handleSlideIdx(slideIdx + 1);
+  };
+  const previous: () => void = () => {
+    sliderRef.current?.slickPrev();
+    handleSlideIdx(slideIdx - 1);
+  };
+
+  const sliderSettings = {
+    arrows: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+  };
   return (
     <section>
+      {/* TODO : 컴포넌트 구현 필요 */}
       {/* <StatusBar /> */}
-      <FirstSetting />
-      {/* <progressBtnSection /> */}
 
+      <Slider ref={sliderRef} {...sliderSettings}>
+        <FirstSetting />
+        <SecondSetting />
+      </Slider>
 
-      {/*<Slider {...settings}>*/}
-      {/*  <div>*/}
-      {/*    <h3 style={{ color: '#FFFAFF', backgroundColor: '#ABD1A9' }}>1</h3>*/}
-      {/*  </div>*/}
-      {/*  <div>*/}
-      {/*    <h3 style={{ color: '#FFFAFF', backgroundColor: '#ffba13' }}>2</h3>*/}
-      {/*  </div>*/}
-      {/*  <div>*/}
-      {/*    <h3 style={{ color: '#FFFAFF', backgroundColor: '#00fff7' }}>3</h3>*/}
-      {/*  </div>*/}
-      {/*  <div>*/}
-      {/*    <h3 style={{ color: '#FFFAFF', backgroundColor: '#ff2141' }}>4</h3>*/}
-      {/*  </div>*/}
-      {/*  <div>*/}
-      {/*    <h3 style={{ color: '#FFFAFF', backgroundColor: '#4a3eff' }}>5</h3>*/}
-      {/*  </div>*/}
-      {/*</Slider>*/}
+      <SettingPrevNextButton
+        prevFn={previous}
+        nextFn={next}
+        slideIdx={slideIdx}
+      />
     </section>
   );
 };
