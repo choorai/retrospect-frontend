@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import FirstSetting from '../../components/retrospect-settings/FirstSetting';
 import SecondSetting from '../../components/retrospect-settings/SecondSetting';
 import SettingPrevNextButton from '../../components/retrospect-settings/SettingPrevNextButton';
+import SlideStatusBar from '../../components/retrospect-settings/SlideStatusBar';
 
 const RetrospectSettingsPage = () => {
   const [slideIdx, setSlideIdx] = useState<number>(1);
@@ -36,8 +37,7 @@ const RetrospectSettingsPage = () => {
   };
   return (
     <section>
-      {/* TODO : 컴포넌트 구현 필요 */}
-      {/* <StatusBar /> */}
+      <SlideStatusBar slideIdx={slideIdx}/>
 
       <Slider ref={sliderRef} {...sliderSettings}>
         <FirstSetting />
