@@ -5,6 +5,7 @@ import reHubTemplateRoutes from './ReHubTemplatesRoutes';
 import ourStoryRoutes from './OurStoryRoutes';
 import customerSupportRoutes from './CustomerSupportRoutes';
 import retrospectSettingsRoutes from './RetrospectSettingsRoutes';
+import loginRoutes from './LoginRoutes';
 
 const routes: RouteObject[] = [
   ...homeRoutes,
@@ -12,7 +13,8 @@ const routes: RouteObject[] = [
   ...reHubTemplateRoutes,
   ...ourStoryRoutes,
   ...customerSupportRoutes,
-  ...retrospectSettingsRoutes
+  ...retrospectSettingsRoutes,
+  ...loginRoutes,
 ];
 
 export default routes;
