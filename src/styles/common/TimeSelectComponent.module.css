@@ -1,0 +1,78 @@
+/* 시/분/초 를 고를 수 있는 요소의 최외곽 부모요소 */
+.timeSelectContainer {
+  position: relative;
+  width: 200px;
+}
+
+.timeSelectBtn {
+  width: 100%;
+  padding: 13px 30px 13px 14px;
+  font-size: 12px;
+  line-height: 14px;
+  background-color: #fff;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: left;
+  /* 말줄임 */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.timeSelectBtn:hover, .timeSelectBtn:focus {
+  border: 1px solid #9B51E0;
+  outline: 3px solid #F8E4FF;
+}
+
+.timeSelectItems {
+  list-style-type: none;
+  display: none;
+  position: absolute;
+  width: 100%;
+  top: 35px;
+  left: 0;
+  padding: 0;
+  border: 1px solid #C4C4C4;
+  box-sizing: border-box;
+  box-shadow: 4px 4px 14px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  /* scroll setting */
+  height: 300px;
+  overflow: auto;
+}
+
+.displayBlock {
+  display: block;
+}
+
+.displayNone {
+  display: none;
+}
+
+.timeSelectItem {
+  width: 100%;
+  height: 40px;
+  padding: 5px 8px;
+  box-sizing: border-box;
+}
+
+.timeSelectItemBtn {
+  width: 100%;
+  padding: 7px 10px;
+  border: none;
+  background-color: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  /* 말줄임 */
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.timeSelectItemBtn:hover,
+.timeSelectItemBtn:focus {
+  background-color: #F8E4FF;
+}
