@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import FirstSetting from '../../components/retrospect-settings/FirstSetting';
-import SecondSetting from '../../components/retrospect-settings/SecondSetting';
+import GoalSetting from '../../components/retrospect-settings/GoalSetting';
+import TemplateSelectSetting from '../../components/retrospect-settings/TemplateSelectSetting';
 import SettingPrevNextButton from '../../components/retrospect-settings/SettingPrevNextButton';
 import SlideStatusBar from '../../components/retrospect-settings/SlideStatusBar';
+import TimeSetting from '../../components/retrospect-settings/TimeSetting';
 
 const RetrospectSettingsPage = () => {
   const [slideIdx, setSlideIdx] = useState<number>(1);
@@ -37,11 +38,13 @@ const RetrospectSettingsPage = () => {
   };
   return (
     <section>
-      <SlideStatusBar slideIdx={slideIdx}/>
+      <SlideStatusBar slideIdx={slideIdx} />
 
       <Slider ref={sliderRef} {...sliderSettings}>
-        <FirstSetting />
-        <SecondSetting />
+        <GoalSetting />
+        <TemplateSelectSetting />
+        {/* TODO : name, time은 API를 통해 받아와야 함 */}
+        <TimeSetting name={'KPT'} avgDurationMinutes={120} />
       </Slider>
 
       <SettingPrevNextButton
