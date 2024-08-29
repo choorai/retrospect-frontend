@@ -1,0 +1,60 @@
+.rootContainer {
+  /*display: flex;*/
+  /*flex-direction: row;*/
+  /*align-items: center;*/
+  /*justify-content: space-around;*/
+
+  /*position: fixed;*/
+  /*bottom: 80px;*/
+  /*width: 100%;*/
+  /*height: 10vh;*/
+  /*text-align: center;*/
+}
+
+.prevBtn {
+  position: fixed;
+  left: 380px;
+  bottom: 80px;
+
+  padding: 0.8vw 2vw;
+  font-size: 1.8vw;
+  border-radius: 8px;
+  border: none;
+  background: none;
+  color: var(--normal-color);
+}
+
+.nextBtn {
+  position: fixed;
+  right: 380px;
+  bottom: 80px;
+
+  padding: 0.8vw 2vw;
+  font-size: 1.8vw;
+
+  border: white solid 2px;
+  border-radius: 8px;
+  background-color: var(--primary-color);
+  color: whitesmoke;
+}
+
+.fadeInBtn {
+  transition: opacity 0.3s ease-out, visibility 0.5s ease-out;
+  opacity: 1;
+  visibility: visible;
+}
+
+.fadeOutBtn {
+  transition: opacity 0.3s ease-out, visibility 0.5s ease-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nextBtn:hover {
+  background-color: var(--secondary-color);
+}
+
+.prevBtn:hover, .nextBtn:hover {
+  cursor: pointer;
+  font-weight: bold;
+}
