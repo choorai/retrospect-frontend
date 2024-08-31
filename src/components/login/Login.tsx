@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../../styles/login/Login.module.css';
+import { Link } from 'react-router-dom';
 
 const Login: React.FC = () => {
   return (
@@ -31,10 +32,14 @@ const Login: React.FC = () => {
         </div>
         <ul className={`${styles.sub}`}>
           <li>
-            <a href="">회원가입</a>
+            <Link className={styles.navLinkText} to={''}>
+              회원가입
+            </Link>
           </li>
           <li>
-            <a href="">아이디/비밀번호 찾기</a>
+            <Link className={styles.navLinkText} to={''}>
+              아이디/비밀번호 찾기
+            </Link>
           </li>
         </ul>
       </div>
