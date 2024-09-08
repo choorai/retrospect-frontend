@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Invitation.module.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Invitation: React.FC = () => {
   const [copyLink] = useState('www.naver.com'); // TODO: 추후 API 연동
@@ -8,7 +10,7 @@ const Invitation: React.FC = () => {
     const element = document.querySelector('.copyLink');
     const link = element!.textContent;
     navigator.clipboard.writeText(link || '').then(() => {
-      alert('복사 완료!');
+      toast('📝 복사 완료!');
     });
   };
 
@@ -21,6 +23,18 @@ const Invitation: React.FC = () => {
           <button className={styles.copyButton} onClick={handleOnCopyLink}>
             📝 복사하기
           </button>
+          <ToastContainer
+            position="bottom-center"
+            autoClose={3000}
+            hideProgressBar
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
         </div>
       </div>
     </section>
