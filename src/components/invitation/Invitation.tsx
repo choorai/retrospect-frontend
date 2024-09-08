@@ -16,7 +16,7 @@ const Invitation: React.FC = () => {
     <section className={styles.rootContainer}>
       <div className={styles.content}>
         <div className={styles.title}>회고를 함께 할 사람을 초대해보세요!</div>
-        <div className={styles.subTitle}>
+        <div className={styles.subtitle}>
           공유 링크: <span className={'copyLink'}>{copyLink}</span>
           <button className={styles.copyButton} onClick={handleOnCopyLink}>
             📝 복사하기
