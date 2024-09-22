@@ -6,6 +6,7 @@ import ourStoryRoutes from './OurStoryRoutes';
 import customerSupportRoutes from './CustomerSupportRoutes';
 import retrospectSettingsRoutes from './RetrospectSettingsRoutes';
 import loginRoutes from './LoginRoutes';
+import invitationRoutes from './InvitationRoutes';
 
 const routes: RouteObject[] = [
   ...homeRoutes,
@@ -15,6 +16,7 @@ const routes: RouteObject[] = [
   ...customerSupportRoutes,
   ...retrospectSettingsRoutes,
   ...loginRoutes,
+  ...invitationRoutes,
 ];
 
 export default routes;
