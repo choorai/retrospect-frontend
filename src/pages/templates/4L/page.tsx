@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from '../../../styles/templates/4L.module.css';
+import Cookies from 'js-cookie';
 
 interface Item {
   id: string;
@@ -12,6 +13,8 @@ interface Section {
   description: string;
   items: Item[];
 }
+
+const COOKIE_KEY = '4L_RETROSPECT_DRAFT';
 
 const FourLTemplate: React.FC = () => {
   const [sections, setSections] = useState<Section[]>([
@@ -42,6 +45,19 @@ const FourLTemplate: React.FC = () => {
   ]);
 
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
+
+  // 페이지 로드 시 저장된 데이터 불러오기
+  useEffect(() => {
+    const savedData = Cookies.get(COOKIE_KEY);
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setSections(parsedData);
+      } catch (error) {
+        console.error('저장된 데이터 파싱 중 오류 발생:', error);
+      }
+    }
+  }, []);
 
   const handleInputChange = (sectionId: string, value: string) => {
     setInputValues(prev => ({
@@ -78,6 +94,16 @@ const FourLTemplate: React.FC = () => {
       }
       return section;
     }));
+  };
+
+  const handleSave = () => {
+    try {
+      Cookies.set(COOKIE_KEY, JSON.stringify(sections), { expires: 7 }); // 7일간 유효
+      alert('임시 저장되었습니다!');
+    } catch (error) {
+      console.error('저장 중 오류 발생:', error);
+      alert('저장 중 오류가 발생했습니다.');
+    }
   };
 
   return (
@@ -127,8 +153,13 @@ const FourLTemplate: React.FC = () => {
       </main>
 
       <footer className={styles.footer}>
-        <button className={styles.saveButton}>저장하기</button>
-        <button className={styles.completeButton}>회고 완료</button>
+        <button 
+          className={styles.saveButton} 
+          onClick={handleSave}
+        >
+          저장하기
+        </button>
+        <button className={styles.completeButton}>제출하기</button>
       </footer>
     </div>
   );
