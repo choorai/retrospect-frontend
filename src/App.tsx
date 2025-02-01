@@ -1,6 +1,7 @@
 import React from 'react';
-import { BrowserRouter as Router, useRoutes } from 'react-router-dom';
+import { BrowserRouter as Router, useRoutes, Routes, Route } from 'react-router-dom';
 import routes from './routes';
+import TemplateSelection from './pages/templateSelection/TemplateSelection';
 
 const App: React.FC = () => {
   return useRoutes(routes);
@@ -10,7 +11,10 @@ const App: React.FC = () => {
 const AppWrapper: React.FC = () => {
   return (
     <Router>
-      <App />
+      <Routes>
+        <Route path="/" element={<App />} />
+        <Route path="/template-selection" element={<TemplateSelection />} />
+      </Routes>
     </Router>
   );
 };

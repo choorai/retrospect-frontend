@@ -6,7 +6,7 @@ const MainSection: React.FC = () => {
   const navigate = useNavigate();
 
   const startBtnClick = () => {
-    navigate('/retrospect-settings');
+    navigate('/template-selection');
   };
 
   return (

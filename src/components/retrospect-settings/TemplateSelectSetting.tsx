@@ -1,7 +1,35 @@
 import React from 'react';
 import styles from '../../styles/retrospectSettings/TemplateSelectSetting.module.css';
 
+interface Template {
+  id: number;
+  name: string;
+  description: string;
+  enable: boolean;
+}
+
 const TemplateSelectSetting: React.FC = () => {
+  const templates: Template[] = [
+    {
+      id: 1,
+      name: '4L 회고',
+      description: 'Liked, Learned, Lacked, Longed for 방식으로 진행하는 회고',
+      enable: true,
+    },
+    {
+      id: 2,
+      name: '(준비중) KPT 회고',
+      description: 'Keep, Problem, Try 방식으로 진행하는 회고',
+      enable: false,
+    },
+    {
+      id: 3,
+      name: '(준비중) 5F 회고',
+      description: 'Fact, Feeling, Finding, Future action, Feedback 방식으로 진행하는 회고',
+      enable: false,
+    },
+  ];
+
   return (
     <section className={styles.rootContainer}>
       <div>
@@ -11,22 +39,16 @@ const TemplateSelectSetting: React.FC = () => {
         </div>
 
         <div className={styles.templateContainer}>
-          <div className={styles.template}>
-            <span lang={"en"} className={styles.templateTitle}>KPT</span>
-            <span className={styles.templateDescription}>한 줄 설명 뭐시기</span>
-          </div>
-          <div className={styles.template}>
-            <span lang={"en"} className={styles.templateTitle}>KPT</span>
-            <span className={styles.templateDescription}>한 줄 설명 뭐시기</span>
-          </div>
-          <div className={styles.template}>
-            <span lang={"en"} className={styles.templateTitle}>KPT</span>
-            <span className={styles.templateDescription}>한 줄 설명 뭐시기</span>
-          </div>
-          <div className={styles.template}>
-            <span lang={"en"} className={styles.templateTitle}>KPT</span>
-            <span className={styles.templateDescription}>한 줄 설명 뭐시기</span>
-          </div>
+          {templates.map((template) => (
+            <div 
+              key={template.id}
+              className={`${styles.template} ${!template.enable ? styles.disabled : ''}`}
+              onClick={template.enable ? undefined : (e) => e.preventDefault()}
+            >
+              <span lang={"en"} className={styles.templateTitle}>{template.name}</span>
+              <span className={styles.templateDescription}>{template.description}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>
