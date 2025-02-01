@@ -27,7 +27,11 @@ const TemplateSelection: React.FC = () => {
   ];
 
   const selectTemplate = (templateId: number) => {
-    navigate(`/retrospect/${templateId}`);
+    if (templateId === 1) {
+      navigate('/templates/4L');
+    } else {
+      navigate(`/retrospect/${templateId}`);
+    }
   };
 
   return (

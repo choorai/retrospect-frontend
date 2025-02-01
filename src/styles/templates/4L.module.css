@@ -1,0 +1,161 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 4rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+.description {
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.mainContent {
+  flex: 1;
+  margin-bottom: 2rem;
+}
+
+.sectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  height: 100%;
+}
+
+.section {
+  background-color: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionTitle {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.sectionDescription {
+  color: #666;
+  margin-bottom: 1rem;
+  font-size: 1rem;
+}
+
+.textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 300px;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  resize: vertical;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #9B51E0;
+  box-shadow: 0 0 0 2px rgba(155, 81, 224, 0.2);
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+}
+
+.saveButton, .completeButton {
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.saveButton {
+  background-color: white;
+  border: 2px solid #9B51E0;
+  color: #9B51E0;
+}
+
+.saveButton:hover {
+  background-color: #9B51E0;
+  color: white;
+}
+
+.completeButton {
+  background-color: #9B51E0;
+  border: none;
+  color: white;
+}
+
+.completeButton:hover {
+  background-color: #7B3FB2;
+}
+
+.inputWrapper {
+  margin-bottom: 1rem;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #9B51E0;
+  box-shadow: 0 0 0 2px rgba(155, 81, 224, 0.2);
+}
+
+.itemsContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8f9fa;
+  padding: 0.8rem 1rem;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.removeButton {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0 0.5rem;
+}
+
+.removeButton:hover {
+  color: #dc3545;
+} 

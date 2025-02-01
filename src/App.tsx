@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, useRoutes, Routes, Route } from 'react-router-dom';
 import routes from './routes';
 import TemplateSelection from './pages/templateSelection/TemplateSelection';
+import FourLTemplate from './pages/templates/4L/page';
 
 const App: React.FC = () => {
   return useRoutes(routes);
@@ -14,6 +15,7 @@ const AppWrapper: React.FC = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/template-selection" element={<TemplateSelection />} />
+        <Route path="/templates/4L" element={<FourLTemplate />} />
       </Routes>
     </Router>
   );
