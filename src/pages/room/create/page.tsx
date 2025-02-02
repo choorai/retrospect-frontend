@@ -42,16 +42,16 @@ const CreateRoom: React.FC = () => {
     // 템플릿 타입에 따라 다른 페이지로 이동
     switch (templateType) {
       case '4L':
-        navigate(`/templates/4L?room=${roomCode}`);
+        navigate(`/templates/v1-4L?room=${roomCode}`);
         break;
       case 'KPT':
         navigate(`/templates/kpt?room=${roomCode}`);
         break;
       case '5F':
-        navigate(`/templates/5f?room=${roomCode}`);
+        navigate(`/templates/v1-5f?room=${roomCode}`);
         break;
       default:
-        navigate(`/templates/4L?room=${roomCode}`);
+        navigate(`/templates/v1-4L?room=${roomCode}`);
     }
   };
 

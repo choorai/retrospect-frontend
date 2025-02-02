@@ -16,7 +16,7 @@ const AppWrapper: React.FC = () => {
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/template-selection" element={<TemplateSelection />} />
-        <Route path="/templates/4L" element={<FourLTemplate />} />
+        <Route path="/templates/v1-4L" element={<FourLTemplate />} />
         <Route path="/room/create" element={<CreateRoom />} />
       </Routes>
     </Router>
