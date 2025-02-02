@@ -39,7 +39,20 @@ const CreateRoom: React.FC = () => {
     };
     localStorage.setItem(`room_${roomCode}`, JSON.stringify(roomInfo));
 
-    navigate(`/templates/4L?room=${roomCode}`);
+    // 템플릿 타입에 따라 다른 페이지로 이동
+    switch (templateType) {
+      case '4L':
+        navigate(`/templates/4L?room=${roomCode}`);
+        break;
+      case 'KPT':
+        navigate(`/templates/kpt?room=${roomCode}`);
+        break;
+      case '5F':
+        navigate(`/templates/5f?room=${roomCode}`);
+        break;
+      default:
+        navigate(`/templates/4L?room=${roomCode}`);
+    }
   };
 
   return (

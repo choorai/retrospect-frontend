@@ -158,4 +158,45 @@
 
 .removeButton:hover {
   color: #dc3545;
+}
+
+.roomInfo {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  background-color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.roomCode {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.roomName {
+  text-align: center;
+  padding-top: 0.5rem;
+  border-top: 1px solid #eee;
+}
+
+.roomNameValue {
+  font-size: 1rem;
+  color: #666;
+}
+
+.roomCodeLabel {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.roomCodeValue {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 2px;
 } 

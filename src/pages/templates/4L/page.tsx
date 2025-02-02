@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import styles from '../../../styles/templates/4L.module.css';
 import Cookies from 'js-cookie';
 
@@ -14,9 +15,21 @@ interface Section {
   items: Item[];
 }
 
+interface RoomInfo {
+  code: string;
+  name: string;
+  templateType: string;
+  templateName: string;
+  createdAt: string;
+}
+
 const COOKIE_KEY = '4L_RETROSPECT_DRAFT';
 
 const FourLTemplate: React.FC = () => {
+  const location = useLocation();
+  const roomCode = new URLSearchParams(location.search).get('room');
+  const [roomInfo, setRoomInfo] = useState<RoomInfo | null>(null);
+
   const [sections, setSections] = useState<Section[]>([
     {
       id: 'liked',
@@ -58,6 +71,15 @@ const FourLTemplate: React.FC = () => {
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (roomCode) {
+      const savedRoomInfo = localStorage.getItem(`room_${roomCode}`);
+      if (savedRoomInfo) {
+        setRoomInfo(JSON.parse(savedRoomInfo));
+      }
+    }
+  }, [roomCode]);
 
   const handleInputChange = (sectionId: string, value: string) => {
     setInputValues(prev => ({
@@ -108,6 +130,18 @@ const FourLTemplate: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      {roomInfo && (
+        <div className={styles.roomInfo}>
+          <div className={styles.roomCode}>
+            <span className={styles.roomCodeLabel}>회고방 코드</span>
+            <span className={styles.roomCodeValue}>{roomInfo.code}</span>
+          </div>
+          <div className={styles.roomName}>
+            <span className={styles.roomNameValue}>{roomInfo.name}</span>
+          </div>
+        </div>
+      )}
+
       <header className={styles.header}>
         <h1 className={styles.title}>4L 회고</h1>
         <p className={styles.description}>
