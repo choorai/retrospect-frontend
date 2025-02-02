@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styles from '../../../styles/templates/4L.module.css';
 import Cookies from 'js-cookie';
 
@@ -27,6 +27,7 @@ const COOKIE_KEY = '4L_RETROSPECT_DRAFT';
 
 const FourLTemplate: React.FC = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const roomCode = new URLSearchParams(location.search).get('room');
   const [roomInfo, setRoomInfo] = useState<RoomInfo | null>(null);
 
@@ -72,14 +73,22 @@ const FourLTemplate: React.FC = () => {
     }
   }, []);
 
+  // room 파라미터 체크
   useEffect(() => {
-    if (roomCode) {
-      const savedRoomInfo = localStorage.getItem(`room_${roomCode}`);
-      if (savedRoomInfo) {
-        setRoomInfo(JSON.parse(savedRoomInfo));
-      }
+    if (!roomCode) {
+      navigate('/');
+      return;
     }
-  }, [roomCode]);
+
+    // 방 정보 로드
+    const savedRoomInfo = localStorage.getItem(`room_${roomCode}`);
+    if (!savedRoomInfo) {
+      navigate('/');
+      return;
+    }
+
+    setRoomInfo(JSON.parse(savedRoomInfo));
+  }, [roomCode, navigate]);
 
   const handleInputChange = (sectionId: string, value: string) => {
     setInputValues(prev => ({
