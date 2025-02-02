@@ -23,13 +23,12 @@ interface RoomInfo {
   createdAt: string;
 }
 
-const COOKIE_KEY = '4L_RETROSPECT_DRAFT';
-
 const FourLTemplate: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const roomCode = new URLSearchParams(location.search).get('room');
   const [roomInfo, setRoomInfo] = useState<RoomInfo | null>(null);
+  const [cookieKey, setCookieKey] = useState<string>('');
 
   const [sections, setSections] = useState<Section[]>([
     {
@@ -60,20 +59,7 @@ const FourLTemplate: React.FC = () => {
 
   const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
 
-  // 페이지 로드 시 저장된 데이터 불러오기
-  useEffect(() => {
-    const savedData = Cookies.get(COOKIE_KEY);
-    if (savedData) {
-      try {
-        const parsedData = JSON.parse(savedData);
-        setSections(parsedData);
-      } catch (error) {
-        console.error('저장된 데이터 파싱 중 오류 발생:', error);
-      }
-    }
-  }, []);
-
-  // room 파라미터 체크
+  // room 파라미터 체크 및 쿠키 키 설정
   useEffect(() => {
     if (!roomCode) {
       navigate('/');
@@ -88,7 +74,23 @@ const FourLTemplate: React.FC = () => {
     }
 
     setRoomInfo(JSON.parse(savedRoomInfo));
+    setCookieKey(`4L_RETROSPECT_${roomCode}`); // 방별 고유 쿠키 키 설정
   }, [roomCode, navigate]);
+
+  // 페이지 로드 시 저장된 데이터 불러오기
+  useEffect(() => {
+    if (!cookieKey) return;
+
+    const savedData = Cookies.get(cookieKey);
+    if (savedData) {
+      try {
+        const parsedData = JSON.parse(savedData);
+        setSections(parsedData);
+      } catch (error) {
+        console.error('저장된 데이터 파싱 중 오류 발생:', error);
+      }
+    }
+  }, [cookieKey]);
 
   const handleInputChange = (sectionId: string, value: string) => {
     setInputValues(prev => ({
@@ -128,8 +130,10 @@ const FourLTemplate: React.FC = () => {
   };
 
   const handleSave = () => {
+    if (!cookieKey) return;
+
     try {
-      Cookies.set(COOKIE_KEY, JSON.stringify(sections), { expires: 7 }); // 7일간 유효
+      Cookies.set(cookieKey, JSON.stringify(sections), { expires: 7 }); // 7일간 유효
       alert('임시 저장되었습니다!');
     } catch (error) {
       console.error('저장 중 오류 발생:', error);
