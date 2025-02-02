@@ -11,27 +11,32 @@ const TemplateSelection: React.FC = () => {
       name: '4L 회고',
       description: 'Liked, Learned, Lacked, Longed for 방식으로 진행하는 회고',
       enable: true,
+      type: '4L'
     },
     {
       id: 2,
       name: '(준비중) KPT 회고',
       description: 'Keep, Problem, Try 방식으로 진행하는 회고',
       enable: false,
+      type: 'KPT',
     },
     {
       id: 3,
       name: '(준비중) 5F 회고',
       description: 'Fact, Feeling, Finding, Future action, Feedback 방식으로 진행하는 회고',
       enable: false,
+      type: '5F',
     },
   ];
 
-  const selectTemplate = (templateId: number) => {
-    if (templateId === 1) {
-      navigate('/templates/4L');
-    } else {
-      navigate(`/retrospect/${templateId}`);
-    }
+  const selectTemplate = (templateId: number, templateType: string, templateName: string) => {
+    navigate('/room/create', {
+      state: {
+        templateId,
+        templateType,
+        templateName
+      }
+    });
   };
 
   return (
@@ -44,7 +49,7 @@ const TemplateSelection: React.FC = () => {
           <div 
             key={template.id}
             className={`${styles.templateCard} ${!template.enable ? styles.disabled : ''}`}
-            onClick={() => template.enable ? selectTemplate(template.id) : null}
+            onClick={() => template.enable ? selectTemplate(template.id, template.type, template.name) : null}
           >
             <h2>{template.name}</h2>
             <p>{template.description}</p>

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, useRoutes, Routes, Route } from 'react-router-
 import routes from './routes';
 import TemplateSelection from './pages/templateSelection/TemplateSelection';
 import FourLTemplate from './pages/templates/4L/page';
+import CreateRoom from './pages/room/create/page';
 
 const App: React.FC = () => {
   return useRoutes(routes);
@@ -16,6 +17,7 @@ const AppWrapper: React.FC = () => {
         <Route path="/" element={<App />} />
         <Route path="/template-selection" element={<TemplateSelection />} />
         <Route path="/templates/4L" element={<FourLTemplate />} />
+        <Route path="/room/create" element={<CreateRoom />} />
       </Routes>
     </Router>
   );
