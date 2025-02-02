@@ -179,14 +179,26 @@
 }
 
 .roomName {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
   padding-top: 0.5rem;
   border-top: 1px solid #eee;
 }
 
-.roomNameValue {
-  font-size: 1rem;
+.roomNameLabel {
+  font-size: 0.9rem;
   color: #666;
+}
+
+.roomNameValue {
+  /* font-size: 1rem;
+  color: #666; */
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  letter-spacing: 2px;
 }
 
 .roomCodeLabel {
@@ -199,4 +211,48 @@
   font-weight: bold;
   color: #333;
   letter-spacing: 2px;
+}
+
+.userNameWrapper {
+  position: absolute;
+  top: 2rem;
+  right: 16rem;
+  background-color: white;
+  padding: 1rem 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.userNameInput {
+  width: 200px;
+  padding: 0.8rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.userNameInput:focus {
+  outline: none;
+  border-color: #9B51E0;
+  box-shadow: 0 0 0 2px rgba(155, 81, 224, 0.2);
+}
+
+.userNameInput::placeholder {
+  color: #adb5bd;
+}
+
+.userNameDisplay {
+  font-size: 1rem;
+  color: #333;
+  font-weight: bold;
+  text-align: center;
+  min-width: 200px;
+  padding: 0.8rem;
+}
+
+.userNameDisplay:hover {
+  color: #9B51E0;
 } 

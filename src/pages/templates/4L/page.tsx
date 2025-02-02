@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { io, Socket } from 'socket.io-client';
 import styles from '../../../styles/templates/4L.module.css';
 import Cookies from 'js-cookie';
 
@@ -23,12 +24,24 @@ interface RoomInfo {
   createdAt: string;
 }
 
+interface SocketMessage {
+  type: 'sections_update';
+  data: Section[];
+  roomCode: string;
+  userName: string;
+}
+
 const FourLTemplate: React.FC = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const roomCode = new URLSearchParams(location.search).get('room');
   const [roomInfo, setRoomInfo] = useState<RoomInfo | null>(null);
   const [cookieKey, setCookieKey] = useState<string>('');
+  const [socket, setSocket] = useState<Socket | null>(null);
+  const [userName, setUserName] = useState(() => {
+    return localStorage.getItem('userName') || '';
+  });
+  const [isEditingName, setIsEditingName] = useState(!localStorage.getItem('userName'));
 
   const [sections, setSections] = useState<Section[]>([
     {
@@ -92,6 +105,59 @@ const FourLTemplate: React.FC = () => {
     }
   }, [cookieKey]);
 
+  // userName이 변경될 때마다 localStorage에 저장
+  useEffect(() => {
+    if (userName) {
+      localStorage.setItem('userName', userName);
+    }
+  }, [userName]);
+
+  // 웹소켓 연결 설정
+  useEffect(() => {
+    if (!roomCode || !roomInfo || !userName) return;
+
+    const newSocket = io(process.env.REACT_APP_SOCKET_URL || 'http://localhost:8080', {
+      query: {
+        roomCode: `room_${roomCode}`,
+        userName: userName
+      }
+    });
+
+    newSocket.on('connect', () => {
+      console.log('Connected to WebSocket');
+    });
+
+    newSocket.on('sections_update', (message: SocketMessage) => {
+      if (message.roomCode === `room_${roomCode}`) {
+        setSections(message.data);
+        // TODO : receive 구현 필요
+        console.log('socket received');
+        console.log(message);
+      }
+    });
+
+    setSocket(newSocket);
+
+    return () => {
+      newSocket.disconnect();
+    };
+  }, [roomCode, roomInfo, userName]);
+
+  // 섹션 업데이트 함수
+  const updateSections = useCallback((newSections: Section[]) => {
+    setSections(newSections);
+    
+    // 웹소켓으로 업데이트 전송
+    if (socket && roomCode) {
+      socket.emit('sections_update', {
+        type: 'sections_update',
+        data: newSections,
+        roomCode: `room_${roomCode}`,
+        userName: userName,
+      });
+    }
+  }, [socket, roomCode, roomInfo]);
+
   const handleInputChange = (sectionId: string, value: string) => {
     setInputValues(prev => ({
       ...prev,
@@ -101,7 +167,7 @@ const FourLTemplate: React.FC = () => {
 
   const handleKeyPress = (sectionId: string, e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && inputValues[sectionId]?.trim()) {
-      setSections(prev => prev.map(section => {
+      const newSections = sections.map(section => {
         if (section.id === sectionId) {
           return {
             ...section,
@@ -109,7 +175,10 @@ const FourLTemplate: React.FC = () => {
           };
         }
         return section;
-      }));
+      });
+      console.log(newSections);
+      
+      updateSections(newSections);
       setInputValues(prev => ({
         ...prev,
         [sectionId]: ''
@@ -118,7 +187,7 @@ const FourLTemplate: React.FC = () => {
   };
 
   const removeItem = (sectionId: string, itemId: string) => {
-    setSections(prev => prev.map(section => {
+    const newSections = sections.map(section => {
       if (section.id === sectionId) {
         return {
           ...section,
@@ -126,19 +195,32 @@ const FourLTemplate: React.FC = () => {
         };
       }
       return section;
-    }));
+    });
+    
+    updateSections(newSections);
   };
 
   const handleSave = () => {
     if (!cookieKey) return;
 
     try {
-      Cookies.set(cookieKey, JSON.stringify(sections), { expires: 7 }); // 7일간 유효
+      Cookies.set(cookieKey, JSON.stringify(sections), { expires: 7 });
       alert('임시 저장되었습니다!');
     } catch (error) {
       console.error('저장 중 오류 발생:', error);
       alert('저장 중 오류가 발생했습니다.');
     }
+  };
+
+  const handleUserNameKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && userName.trim()) {
+      setIsEditingName(false);
+      localStorage.setItem('userName', userName.trim());
+    }
+  };
+
+  const handleUserNameClick = () => {
+    setIsEditingName(true);
   };
 
   return (
@@ -150,10 +232,39 @@ const FourLTemplate: React.FC = () => {
             <span className={styles.roomCodeValue}>{roomInfo.code}</span>
           </div>
           <div className={styles.roomName}>
+            <span className={styles.roomNameLabel}>회고방</span>
             <span className={styles.roomNameValue}>{roomInfo.name}</span>
           </div>
         </div>
       )}
+
+      <div className={styles.userNameWrapper}>
+        {isEditingName ? (
+          <input
+            type="text"
+            className={styles.userNameInput}
+            placeholder="닉네임을 입력하세요"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            onKeyPress={handleUserNameKeyPress}
+            onBlur={() => {
+              if (userName.trim()) {
+                setIsEditingName(false);
+                localStorage.setItem('userName', userName.trim());
+              }
+            }}
+            maxLength={20}
+            autoFocus
+          />
+        ) : (
+          <div 
+            className={styles.userNameDisplay}
+            onClick={handleUserNameClick}
+          >
+            {userName}
+          </div>
+        )}
+      </div>
 
       <header className={styles.header}>
         <h1 className={styles.title}>4L 회고</h1>
